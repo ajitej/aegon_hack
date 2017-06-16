@@ -1,0 +1,47 @@
+<app-header></app-header>
+<section *ngIf="!showLogin">
+	<div class="headerBottom" *ngIf="fixedChatInput">
+          <div class="annaLogo">
+              <img src="/assets/img/anna-logo-white.svg">
+         </div>
+        <div class="botLinks"><a href="#">Help with chat</a><a href="#">Close conversation</a></div>
+    </div>
+    <h2 *ngIf="!fixedChatInput" class="styleStaticText">{{initalQues}}</h2>
+	<div id="initialInput" *ngIf="!fixedChatInput">
+		<form (ngSubmit)="sendInput(userInput)" #userInput="ngForm" class="form">
+			<input name="ques" ngModel type="text" id="input" class="form-control" #ques="ngModel"/>
+			<button type="submit" class="">Send</button>
+		</form>	
+	</div>
+
+
+	<div *ngIf="fixedChatInput" class="contentContainer" [ngClass]="{'scrollChat': isClassVisible }" [style.height]="getStyle()" #scrollMe>
+			<div *ngFor="let chat of chats">
+					<p class="userComment">{{chat.user}}</p>
+					<p class="botComment">{{chat.bot}}</p>
+			</div>
+			<p *ngIf="showQuestion" class="userComment">{{ques}}</p>	
+	</div>	
+	<div id="footerContainer" *ngIf="fixedChatInput">
+		<form (ngSubmit)="sendInputFooter(userInputFooter)" #userInputFooter="ngForm" class="form">
+			<input name="ques" ngModel type="text" id="input" class="form-control" #ques="ngModel"/>
+			<button type="submit" class="">Send</button>
+		</form>	
+	</div>
+</section>
+
+<section *ngIf="showLogin">
+	<div id="contentContainerSignIn">
+		<form (ngSubmit)="userLogin(user)" #user="ngForm" class="formClass" role="form">
+			<h2>Sign in</h2>
+			<span class="labelClass">Email address:</span>
+			<input name="username" ngModel #username="ngModel" class="inputClass"/>
+			<br/>
+            <span class="labelClass">Password:</span>
+			<input type="password" ngModel name="pass" #pass="ngModel" class="inputClass"/>
+			<br/>
+            <a href="#">Forgotten password?</a>
+			<button type="submit" class="btn btn-secondary">Sign in</button>
+		</form>	
+	</div>
+</section>
